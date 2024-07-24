@@ -29,7 +29,7 @@ def signup(request):
             pass
         user = User.objects.create_user(email,email,password,first_name=name)
         
-        user.is_active=False
+        user.is_active=True
         user.save()
         
         email_subject="Activate Your Account"  
@@ -41,9 +41,9 @@ def signup(request):
 
         })
         
-        email_message = EmailMessage(email_subject,message,settings.EMAIL_HOST_USER,[email])
-        email_message.send()
-        messages.success(request,f"Activate Your Account by clicking the link in your gmail")
+        # email_message = EmailMessage(email_subject,message,settings.EMAIL_HOST_USER,[email])
+        # email_message.send()
+        # messages.success(request,f"Activate Your Account by clicking the link in your gmail")
 
         return redirect('/auth/login/') 
     return render(request,"signup.html")
@@ -79,14 +79,6 @@ def handlelogin(request):
 def handlelogout(request):
     logout(request)
     return redirect('/')
-
-
-
-
-
-
-
-
 
 class RequestResetEmailView(View):
     def get(self,request):
